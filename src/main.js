@@ -146,7 +146,7 @@ const traceMarkup = traceColumns
     const items = [...column, ...column, ...column]
       .map((item) => `<span>${item}</span>`)
       .join("");
-    return `<div class="trace-column trace-column-${index + 1}">${items}</div>`;
+    return `<div class="trace-column trace-column-${index + 1}"><div class="trace-float">${items}</div></div>`;
   })
   .join("");
 
@@ -176,7 +176,19 @@ root.innerHTML = `
 
         <div class="hero-copy">
           <p class="micro-copy">full stack web developer / web automator</p>
-          <h1 class="hero-name" data-text="zuc1fer">zuc1fer</h1>
+          <div class="hero-name-stack">
+            <div class="hero-backplane" aria-hidden="true">
+              <span class="hero-back-line">FULL STACK / PYTHON / FIREBASE / API / UI</span>
+              <span class="hero-back-line hero-back-line-alt">AUTOMATION / SCRAPING / SYSTEMS / DELIVERY</span>
+            </div>
+            <div class="hero-fragments" aria-hidden="true">
+              <span class="hero-fragment hero-fragment-a">zuc1fer</span>
+              <span class="hero-fragment hero-fragment-b">zuc1fer</span>
+              <span class="hero-fragment hero-fragment-c">zuc1fer</span>
+              <span class="hero-fragment hero-fragment-d">zuc1fer</span>
+            </div>
+            <h1 class="hero-name">zuc1fer</h1>
+          </div>
           <p class="hero-phrase">
             <span data-phrase-lead>${phraseGroups[0].lead}</span>
             <span class="hero-focus" data-phrase-focus>${phraseGroups[0].focus}</span>
@@ -190,7 +202,7 @@ root.innerHTML = `
 
         <div class="fact-rail" aria-label="experience highlights">
           <div class="fact-row">
-            <strong>04+</strong>
+            <strong>05+</strong>
             <span>years shipping freelance work and Python web automations</span>
           </div>
           <div class="fact-row">
@@ -201,29 +213,47 @@ root.innerHTML = `
             <strong>ANY</strong>
             <span>stack if it solves the product problem cleanly</span>
           </div>
+          <div class="fact-row">
+            <strong>+150</strong>
+            <span>projects where I applied technical solutions to real-world problems</span>
+          </div>
         </div>
+
+              <div class="contact-links">
+        <a class="contact-link" href="https://github.com/zuc1fer" target="_blank" rel="noreferrer">
+          <span class="contact-label">github</span>
+          <span class="contact-value">github.com/zuc1fer</span>
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/zineddine-meskine-b410a72b5" target="_blank" rel="noreferrer">
+          <span class="contact-label">linkedin</span>
+          <span class="contact-value">zineddine meskine</span>
+        </a>
+        <a class="contact-link" href="https://t.me/zuc1fer" target="_blank" rel="noreferrer">
+          <span class="contact-label">telegram</span>
+          <span class="contact-value">@zuc1fer</span>
+        </a>
+        <a class="contact-link" href="mailto:zuc1fer.business@gmail.com">
+          <span class="contact-label">email</span>
+          <span class="contact-value">zuc1fer.business@gmail.com</span>
+        </a>
+      </div>
 
         <div class="hero-ghost hero-ghost-a">SYSTEMS</div>
         <div class="hero-ghost hero-ghost-b">AUTOMATION</div>
 
-        <div class="scroll-indicator">
-          <span></span>
-          <p>scroll</p>
-        </div>
       </div>
     </section>
 
     <section class="scene motion-scene" data-scene="motion">
       <div class="sticky-stage motion-stage">
-        <p class="micro-copy center">scroll-driven composition</p>
         <h2 class="section-title center-title">
           Frontend precision, backend pressure, browser control, and the parts most portfolios avoid showing.
         </h2>
 
         <div class="motion-lines" aria-hidden="true">
-          <div class="motion-line line-a"><span>frontend precision</span></div>
-          <div class="motion-line line-b"><span>backend pressure</span></div>
-          <div class="motion-line line-c"><span>automation obsession</span></div>
+          <div class="motion-line line-a"><div class="motion-float"><span>frontend precision</span></div></div>
+          <div class="motion-line line-b"><div class="motion-float"><span>backend pressure</span></div></div>
+          <div class="motion-line line-c"><div class="motion-float"><span>automation obsession</span></div></div>
         </div>
 
         <div class="trace-columns" aria-hidden="true">
@@ -324,6 +354,24 @@ root.innerHTML = `
       <p>
         Full stack web developer and web automator with company experience, freelance depth, and a computer science background. Open to serious builds, custom systems, and automation-heavy work.
       </p>
+      <div class="contact-links">
+        <a class="contact-link" href="https://github.com/zuc1fer" target="_blank" rel="noreferrer">
+          <span class="contact-label">github</span>
+          <span class="contact-value">github.com/zuc1fer</span>
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/zineddine-meskine-b410a72b5" target="_blank" rel="noreferrer">
+          <span class="contact-label">linkedin</span>
+          <span class="contact-value">zineddine meskine</span>
+        </a>
+        <a class="contact-link" href="https://t.me/zuc1fer" target="_blank" rel="noreferrer">
+          <span class="contact-label">telegram</span>
+          <span class="contact-value">@zuc1fer</span>
+        </a>
+        <a class="contact-link" href="mailto:zuc1fer.business@gmail.com">
+          <span class="contact-label">email</span>
+          <span class="contact-value">zuc1fer.business@gmail.com</span>
+        </a>
+      </div>
     </footer>
   </main>
 `;
@@ -345,6 +393,7 @@ const scrambleAlphabet = "ZXCVBNMASDFGHJKLQWERTYUIOP1234567890<>/[]{}";
 let phraseIndex = 0;
 let terminalStarted = false;
 let tickQueued = false;
+let scrollIdleTimer = 0;
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -454,6 +503,17 @@ function requestScrollState() {
     updateScrollState();
     tickQueued = false;
   });
+}
+
+function setScrollState(state) {
+  document.body.dataset.scrollState = state;
+}
+
+function markScrollActivity() {
+  setScrollState("active");
+  window.clearTimeout(scrollIdleTimer);
+  scrollIdleTimer = window.setTimeout(() => setScrollState("idle"), 180);
+  requestScrollState();
 }
 
 function randomInt(min, max) {
@@ -654,9 +714,11 @@ analyticsPromise
     document.documentElement.dataset.analytics = "off";
   });
 
+setScrollState("idle");
 cyclePhrases();
 updateScrollState();
 startTerminal();
 
-window.addEventListener("scroll", requestScrollState, { passive: true });
+window.addEventListener("scroll", markScrollActivity, { passive: true });
 window.addEventListener("resize", requestScrollState);
+
