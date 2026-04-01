@@ -1,6 +1,6 @@
-# Firebase Starter
+# zuc1fer portfolio
 
-This project is a lightweight Vite web app with your Firebase project already initialized.
+A one-page Vite portfolio with a dark purple cyberpunk aesthetic, glitch typography, masked terminal logs, and scroll-triggered reveals.
 
 ## Run locally
 
@@ -14,6 +14,8 @@ npm run dev
 npm run build
 ```
 
-## Firebase entry point
+## Main files
 
-Your Firebase setup lives in `src/firebase.js`. Add other services there as needed, for example Auth, Firestore, or Storage.
+- `src/main.js` handles the page structure, rotating phrases, terminal log playback, counters, and reveal logic.
+- `src/styles.css` contains the visual system, glitch styling, responsive layout, and scroll-focused effects.
+- `src/firebase.js` keeps the Firebase app and analytics setup connected in the background.
